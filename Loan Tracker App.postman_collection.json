@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "85780978-0d82-402a-a290-402db866f995",
+		"name": "Loan Tracker App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12112172",
+		"_collection_link": "https://bold-equinox-668403.postman.co/workspace/My-Workspace~b329a766-c98a-4747-8915-89eb8994b8f9/collection/12112172-85780978-0d82-402a-a290-402db866f995?action=share&source=collection_link&creator=12112172"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"item": [
+						{
+							"name": "Register user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"alice\",\r\n    \"email\": \"alice@example.com\",\r\n    \"password\": \"StrongPass123!\",\r\n    \"password2\": \"StrongPass123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/accounts/register/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"accounts",
+										"register",
+										""
+									]
+								},
+								"description": "Generated from cURL: curl -X POST http://127.0.0.1:8000/api/accounts/register/ \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -d '{\"username\":\"alice\",\"email\":\"alice@example.com\",\"password\":\"StrongPass123!\",\"password2\":\"StrongPass123!\"}'\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify OTP",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"alice@example.com\",\r\n    \"otp\": \"348717\",\r\n    \"purpose\": \"register\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/accounts/verify-otp/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"accounts",
+										"verify-otp",
+										""
+									]
+								},
+								"description": "Generated from cURL: curl -X POST http://127.0.0.1:8000/api/accounts/verify-otp/ \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -d '{\"email\":\"alice@example.com\",\"otp\":\"123456\",\"purpose\":\"register\"}'\r\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Register OTP",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"alice@example.com\",\r\n    \"password\": \"NewStrongPass123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/accounts/login/request-otp/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"accounts",
+										"login",
+										"request-otp",
+										""
+									]
+								},
+								"description": "Generated from cURL: curl -X POST http://127.0.0.1:8000/api/accounts/login/request-otp/ \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -d '{\"email\":\"alice@example.com\",\"password\":\"StrongPass123!\"}'\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify OTP",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"alice@example.com\",\r\n    \"otp\": \"806604\",\r\n    \"purpose\": \"login\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/accounts/login/verify-otp/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"accounts",
+										"login",
+										"verify-otp",
+										""
+									]
+								},
+								"description": "Generated from cURL: curl -X POST http://127.0.0.1:8000/api/accounts/login/verify-otp/ \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -d '{\"email\":\"alice@example.com\",\"otp\":\"123456\",\"purpose\":\"login\"}'\r\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reset Password",
+					"item": [
+						{
+							"name": "password-reset request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"alice@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/accounts/password-reset/request/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"accounts",
+										"password-reset",
+										"request",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "password-reset verify",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"alice@example.com\",\r\n    \"otp\": \"551160\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/accounts/password-reset/verify/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"accounts",
+										"password-reset",
+										"verify",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "password-reset confirm",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"alice@example.com\",\r\n  \"new_password\": \"NewStrongPass123!\",\r\n  \"confirm_password\": \"NewStrongPass123!\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/accounts/password-reset/confirm/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"accounts",
+										"password-reset",
+										"confirm",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Loan Documents",
+			"item": [
+				{
+					"name": "Doc Extraction Singlefile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4NjkzMzAyLCJpYXQiOjE3NTg2OTMwMDIsImp0aSI6IjJkMmMwNjhiYjQxNjRlMTFiMDA2NWRmZGJiNDA0MWZjIiwidXNlcl9pZCI6IjEifQ.J6KuAfh3yCp93Qq8VxKMmq7SBpmqHkCdLtnl-A5o6Ks"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/project/Python/Data Encrtption/dataextraction/pdf/appraisal_classify.pdf"
+								},
+								{
+									"key": "filename",
+									"value": "1003_classify",
+									"type": "text"
+								},
+								{
+									"key": "file_type",
+									"value": "pdf",
+									"type": "text"
+								},
+								{
+									"key": "user",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/documents/upload/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"documents",
+								"upload",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
