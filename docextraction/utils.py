@@ -7,6 +7,7 @@ from .models import ExtractedField
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
+
 def extract_text(page):
     pix = page.get_pixmap(dpi=300)
     img = Image.open(io.BytesIO(pix.tobytes("png")))
@@ -40,6 +41,7 @@ def process_document(document):
     for page_index in range(len(doc)):
         text = extract_text(doc[page_index])
 
+        # ---------- Loan Estimate ----------
         if doc_type == "Loan Estimate" and page_index == 1:
             match = re.search(r"Loan Amount\s+\$?([\d,]+)", text)
             if match:
@@ -61,6 +63,7 @@ def process_document(document):
             if match:
                 extracted.apr = match.group(1)
 
+        # ---------- Closing Disclosure ----------
         if doc_type == "Closing Disclosure":
             match = re.search(r"Closing Date\s+([\d/]+)", text, re.IGNORECASE)
             if match:
@@ -73,6 +76,34 @@ def process_document(document):
             match = re.search(r"Sale Price\s+\$?([\d,]+)", text, re.IGNORECASE)
             if match:
                 extracted.sales_price = match.group(1)
+
+        # ---------- Form 1009: Reverse Mortgage Application ----------
+        if "Residential Loan Application for Reverse Mortgages" in text:
+            extracted.document_type = "Form 1009"
+
+            borrower_match = re.search(r"Borrower\s+([A-Za-z\s\.\-]+)\s+\d{1,2}/\d{1,2}/\d{2,4}", text)
+            if borrower_match:
+                extracted.borrower_name = borrower_match.group(1).strip()
+
+            coborrower_match = re.search(r"Co-Borrower\s+([A-Za-z\s\.\-]+)", text)
+            if coborrower_match:
+                extracted.coborrower_name = coborrower_match.group(1).strip()
+
+            date_match = re.search(r"(\d{1,2}/\d{1,2}/\d{2,4})", text)
+            if date_match:
+                extracted.application_date = date_match.group(1)
+
+            address_match = re.search(r"(\d+\s+THE VILLAGE[^\n]+)", text, re.IGNORECASE)
+            if address_match:
+                extracted.property_address = address_match.group(1).strip()
+
+            value_match = re.search(r"Estimate of Appraised Value:\s*([\d,]+\.\d{2})", text, re.IGNORECASE)
+            if value_match:
+                extracted.appraised_value = value_match.group(1)
+
+            fee_match = re.search(r"Loan Origination Fee\s*\$?([\d,]+\.\d{2})", text, re.IGNORECASE)
+            if fee_match:
+                extracted.origination_fee = fee_match.group(1)
 
     extracted.save()
     return extracted
