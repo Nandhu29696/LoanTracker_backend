@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Docfile
+from .models import UploadedFile, LoanDocument
 
 class DocumentUploadSerializer(serializers.Serializer):
     files = serializers.ListField(
@@ -9,5 +9,11 @@ class DocumentUploadSerializer(serializers.Serializer):
 
 class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Docfile
+        model = UploadedFile
         fields = "__all__"
+
+
+class LoanDocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LoanDocument
+        fields = "__all__" 

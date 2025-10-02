@@ -7,7 +7,7 @@ from .views import (
 
 )
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import TokenVerifyView
+from rest_framework_simplejwt.views import TokenVerifyView, TokenRefreshView
 
 router = DefaultRouter()
 router.register(r"admin/users", AdminUserViewSet, basename="admin-users")
@@ -18,6 +18,8 @@ urlpatterns = [
     path("login/request-otp/", LoginRequestOTPView.as_view(), name="login-request-otp"),
     path("login/verify-otp/", VerifyLoginOTPView.as_view(), name="login-verify-otp"),
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+
     path("", include(router.urls)),
 
         # password reset

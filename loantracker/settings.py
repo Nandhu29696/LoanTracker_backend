@@ -13,8 +13,13 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = env.bool("DJANGO_DEBUG", default=True)
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
+ 
+CORS_ALLOW_CREDENTIALS = True
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",   # React
+    "http://127.0.0.1:3000",
+]
 # Installed apps (add accounts, rest_framework)
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -24,11 +29,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "corsheaders",
     "accounts",
     "docextraction"
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
