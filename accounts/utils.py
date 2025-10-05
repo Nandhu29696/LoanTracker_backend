@@ -23,5 +23,5 @@ def create_and_send_otp(user, purpose="register"):
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient = [user.email]
 
-    # send_mail(subject, message, from_email, recipient, fail_silently=False)
+    send_mail(subject, message, from_email, recipient, fail_silently=False)
     return otp
